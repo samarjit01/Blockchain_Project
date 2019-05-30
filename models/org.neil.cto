@@ -1,0 +1,118 @@
+namespace org.neil
+
+asset Product identified by ProductId {
+  o String ProductId
+  --> Shop_peer shop
+  --> Customer_peer owner
+  --> Insurance ProductInsurance
+  --> Service_peer ServiceCentre
+  --> Police_peer PoliceId
+  o String Insurance_status
+  o String Cost
+  o String Model_no
+}
+
+
+asset PolicyType identified by PolicytypeId {
+  o String PolicytypeId
+  o String InsuranceId
+  o String Cost
+  o String Description
+  o String Validity
+  --> Insurance[] insurances 
+}
+
+asset Insurance identified by InsureId {
+  o String InsureId
+  o String PolicyType
+  o String StartDate
+  --> Product insured_product
+}
+
+participant Police_peer identified by PoliceId{
+  o String PoliceId
+  o String Password
+  --> Product[] tocheck
+}
+
+participant Shop_peer identified by ShopId {
+  o String ShopId
+  o String ShopName
+  o String password
+  o String Contact_no 
+  --> Product[] Shop_products
+}
+
+participant Customer_peer identified by CustomerId {
+  o String CustomerId
+  o String Name
+  o String Mobile
+  o String password
+  --> Product[] my_products
+}
+
+participant Service_peer identified by ServiceId {
+  o String ServiceId
+  o String password
+  o String Shopname
+  --> Product[] products_to_service
+}
+
+participant Insurance_peer identified by InsuranceId {
+  o String InsuranceId
+  o String CompanyName  //insurance company name.
+  o String password
+  --> PolicyType[] my_policies
+}
+
+transaction Buy{
+  --> Product pro
+  --> Customer_peer NewOwner
+}
+
+transaction DefinePolicy{
+  --> Insurance_peer insurance
+  --> PolicyType typeofpolicy
+}
+
+transaction AddProduct {
+ --> Shop_peer shop
+ --> Product commodity
+}
+
+transaction InsuredProduct {
+ --> Product samaan
+ --> Insurance beema
+}
+
+transaction PolicyInsurance {
+ --> Insurance beema
+ --> PolicyType typeofpolicy
+}
+
+transaction ClaimDamage {
+  --> Service_peer service
+  --> Product pro
+}
+transaction ClaimTheft{
+  --> Police_peer police
+  --> Product pro
+}
+transaction AcceptTheft{
+  --> Police_peer police
+  --> Product pro
+}
+transaction AcceptDamage{
+  --> Service_peer service
+  --> Product pro
+}
+transaction RejectTheft{
+  --> Police_peer police
+  --> Product pro
+}
+transaction RejectDamage{
+  --> Service_peer service
+  --> Product pro
+}
+
+

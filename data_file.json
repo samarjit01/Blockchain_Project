@@ -1,0 +1,1 @@
+{"shopname": "shop", "Shop_products": [" "], "$class": "org.neil.Shop_peer", "ShopId": "shop1", "Contact_no": "12345", "Add": {"city": "string", "zip": "string", "country": "string", "$class": "org.neil.Address", "state": "string", "address": "string"}, "password": "pass"}
